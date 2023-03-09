@@ -25,6 +25,8 @@ set_target_properties(auto decltype lambda tuple ip_filter ip_filter_lib unit_te
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
     )
+target_compile_features(ip_filter PRIVATE cxx_std_17)
+
 target_include_directories(ip_filter_lib
     PRIVATE "${CMAKE_BINARY_DIR}"
     )
@@ -34,11 +36,6 @@ target_link_libraries(unit_tests
     GTest::GTest
     ip_filter_lib
     )
-
-message(${PROJECT_BINARY_DIR})
-message(${PROJECT_SOURCE_DIR})
-message(${CMAKE_CURRENT_SOURCE_DIR})
-message(${CMAKE_CURRENT_BINARY_DIR})
 
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/ip_filter/ip_filter.tsv

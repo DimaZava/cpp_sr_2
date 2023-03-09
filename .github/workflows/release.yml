@@ -14,7 +14,6 @@ jobs:
         with:
           submodules: true
       - run: sudo apt-get update
-      - run: sudo apt install build-essential
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
       - run: cmake --build . --target test
