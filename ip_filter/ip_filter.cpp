@@ -16,11 +16,11 @@
 class ip_address;
 
 int perform_read_and_sort(const char **argv);
-int prepare_data(const char **argv, std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips);
-void perform_task_one(std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips);
-void perform_task_two(std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips);
-void perform_task_three(std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips);
-void perform_task_four(std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips);
+int prepare_data(const char **argv, std::multimap<uint, ip_address, std::greater<uint> > &general_sorted_ips);
+void perform_task_one(std::multimap<uint, ip_address, std::greater<uint> > &general_sorted_ips);
+void perform_task_two(std::multimap<uint, ip_address, std::greater<uint> > &general_sorted_ips);
+void perform_task_three(std::multimap<uint, ip_address, std::greater<uint> > &general_sorted_ips);
+void perform_task_four(std::multimap<uint, ip_address, std::greater<uint> > &general_sorted_ips);
 
 // ("",  '.') -> [""]
 // ("11", '.') -> ["11"]
@@ -83,7 +83,7 @@ int main(int argc, char const *argv[])
 
 int perform_read_and_sort(const char **argv) {
     // read data
-    std::multimap<uint, ip_address, std::greater<uint>> general_sorted_ips;
+    std::multimap<uint, ip_address, std::greater<uint> > general_sorted_ips;
     if (prepare_data(argv, general_sorted_ips) == -1) {
         return  -1;
     }
@@ -95,7 +95,7 @@ int perform_read_and_sort(const char **argv) {
     return 0;
 }
 
-int prepare_data(const char **argv, std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips) {
+int prepare_data(const char **argv, std::multimap<uint, ip_address, std::greater<uint> > &general_sorted_ips) {
     std::string ip_file_path = (std::string)argv[1];
     if (ip_file_path.find("ip_filter.tsv") == std::string::npos) {
         return -1;
@@ -155,7 +155,7 @@ int prepare_data(const char **argv, std::multimap<uint, ip_address, std::greater
     return 0;
 }
 
-void perform_task_one(std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips) {
+void perform_task_one(std::multimap<uint, ip_address, std::greater<uint> > &general_sorted_ips) {
     // std::cout << "--------------------" << std::endl;
     // std::cout << "Task #1 General Sorted Data:" << std::endl << "Total Count: " << general_sorted_ips.size() << std::endl;
     for (auto it = general_sorted_ips.begin(); it != general_sorted_ips.end(); ++ it) {
@@ -164,11 +164,11 @@ void perform_task_one(std::multimap<uint, ip_address, std::greater<uint>> &gener
     }
 }
 
-void perform_task_two(std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips) {
+void perform_task_two(std::multimap<uint, ip_address, std::greater<uint> > &general_sorted_ips) {
     // std::cout << "--------------------" << std::endl;
     // std::cout << "Task #2 First Octet == 1:" << std::endl;
     
-    std::multimap<uint, ip_address, std::greater<uint>> task_two_ips;
+    std::multimap<uint, ip_address, std::greater<uint> > task_two_ips;
     auto octet_one_filter = [](std::pair<uint, ip_address> ip_address_pair) {
         return ip_address_pair.second.octets.at(0) == 1;
     };
@@ -185,11 +185,11 @@ void perform_task_two(std::multimap<uint, ip_address, std::greater<uint>> &gener
     // std::cout << "Total Count: " << task_two_ips.size() << std::endl;
 }
 
-void perform_task_three(std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips) {
+void perform_task_three(std::multimap<uint, ip_address, std::greater<uint> > &general_sorted_ips) {
     // std::cout << "--------------------" << std::endl;
     // std::cout << "Task #3 First Octet == 46, Second Octet == 70:" << std::endl;
     
-    std::multimap<uint, ip_address, std::greater<uint>> task_three_ips;
+    std::multimap<uint, ip_address, std::greater<uint> > task_three_ips;
     auto octet_46_70_filter = [](std::pair<uint, ip_address> ip_address_pair) {
         return ip_address_pair.second.octets.at(0) == 46 &&
         ip_address_pair.second.octets.at(1) == 70;
@@ -207,11 +207,11 @@ void perform_task_three(std::multimap<uint, ip_address, std::greater<uint>> &gen
     // std::cout << "Total Count: " << task_three_ips.size() << std::endl;
 }
 
-void perform_task_four(std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips) {
+void perform_task_four(std::multimap<uint, ip_address, std::greater<uint> > &general_sorted_ips) {
     // std::cout << "--------------------" << std::endl;
     // std::cout << "Task #4 Any Octet == 46:" << std::endl;
     
-    std::multimap<uint, ip_address, std::greater<uint>> task_four_ips;
+    std::multimap<uint, ip_address, std::greater<uint> > task_four_ips;
     auto octet_46_70_filter = [](std::pair<uint, ip_address> ip_address_pair) {
         return ip_address_pair.second.octets.at(0) == 46 ||
         ip_address_pair.second.octets.at(1) == 46 ||
