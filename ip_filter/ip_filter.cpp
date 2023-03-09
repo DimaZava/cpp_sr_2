@@ -7,6 +7,7 @@
 #include <map>
 #include <numeric>
 #include <cstdlib>
+#include <algorithm>
 
 #define UNUSED(variable) (void)variable
 
