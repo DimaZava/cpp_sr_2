@@ -8,6 +8,7 @@
 #include <numeric>
 #include <cstdlib>
 #include <algorithm>
+#include <limits>
 
 #define UNUSED(variable) (void)variable
 
