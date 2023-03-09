@@ -62,6 +62,9 @@ if (MSVC)
     target_compile_options(ip_filter PRIVATE
         /W4
     )
+    target_compile_options(ip_filter_lib PRIVATE
+        /W4
+    )
 else ()
     target_compile_options(auto PRIVATE
         -Wall -Wextra -pedantic -Werror
@@ -76,6 +79,9 @@ else ()
         -Wall -Wextra -pedantic -Werror
     )
     target_compile_options(ip_filter PRIVATE
+        -Wall -Wextra -pedantic -Werror
+    )
+    target_compile_options(ip_filter_lib PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
 endif()
