@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <limits>
+#include <cmath>
 
 #define UNUSED(variable) (void)variable
 
