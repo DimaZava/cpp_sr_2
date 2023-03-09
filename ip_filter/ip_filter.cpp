@@ -12,6 +12,7 @@
 
 class ip_address;
 
+int perform_read_and_sort(const char **argv);
 int prepare_data(const char **argv, std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips);
 void perform_task_one(std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips);
 void perform_task_two(std::multimap<uint, ip_address, std::greater<uint>> &general_sorted_ips);
@@ -67,22 +68,27 @@ int main(int argc, char const *argv[])
 {
     try
     {
-        // read data
-        std::multimap<uint, ip_address, std::greater<uint>> general_sorted_ips;
-        if (prepare_data(argv, general_sorted_ips) == -1) {
-            return  -1;
-        }
-        perform_task_one(general_sorted_ips);
-        perform_task_two(general_sorted_ips);
-        perform_task_three(general_sorted_ips);
-        perform_task_four(general_sorted_ips);
-        // std::cout << "Voila, finish!" << std::endl;
+        perform_read_and_sort(argv);
     }
     catch(const std::exception &e)
     {
         std::cerr << e.what() << std::endl;
     }
     UNUSED(argc);
+    return 0;
+}
+
+int perform_read_and_sort(const char **argv) {
+    // read data
+    std::multimap<uint, ip_address, std::greater<uint>> general_sorted_ips;
+    if (prepare_data(argv, general_sorted_ips) == -1) {
+        return  -1;
+    }
+    perform_task_one(general_sorted_ips);
+    perform_task_two(general_sorted_ips);
+    perform_task_three(general_sorted_ips);
+    perform_task_four(general_sorted_ips);
+    // std::cout << "Voila, finish!" << std::endl;
     return 0;
 }
 
