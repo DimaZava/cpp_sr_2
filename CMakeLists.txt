@@ -26,6 +26,7 @@ set_target_properties(auto decltype lambda tuple ip_filter ip_filter_lib unit_te
     CXX_STANDARD_REQUIRED ON
     )
 target_compile_features(ip_filter PRIVATE cxx_std_17)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 target_include_directories(ip_filter_lib
     PRIVATE "${CMAKE_BINARY_DIR}"
