@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <limits>
 #include <cmath>
+#include <string>
 
 #define UNUSED(variable) (void)variable
 
@@ -67,6 +68,8 @@ public:
     }
 };
 
+static std::string logs;
+
 int main(int argc, char const *argv[])
 {
     try
@@ -77,6 +80,7 @@ int main(int argc, char const *argv[])
     {
         std::cerr << e.what() << std::endl;
     }
+    // logs.hash == 24e7a7b2270daee89c64d3ca5fb3da1a
     UNUSED(argc);
     return 0;
 }
@@ -161,6 +165,7 @@ void perform_task_one(std::multimap<uint, ip_address, std::greater<uint> > &gene
     for (auto it = general_sorted_ips.begin(); it != general_sorted_ips.end(); ++ it) {
         // std::cout << it->first << "\t" << it->second.string_representation << std::endl;
         std::cout << it->second.string_representation << std::endl;
+        logs.append(it->second.string_representation + '\n');
     }
 }
 
@@ -181,6 +186,7 @@ void perform_task_two(std::multimap<uint, ip_address, std::greater<uint> > &gene
     for (auto it = task_two_ips.begin(); it != task_two_ips.end(); ++ it) {
         // std::cout << it->first << "\t" << it->second.string_representation << std::endl;
         std::cout << it->second.string_representation << std::endl;
+        logs.append(it->second.string_representation + '\n');
     }
     // std::cout << "Total Count: " << task_two_ips.size() << std::endl;
 }
@@ -203,6 +209,7 @@ void perform_task_three(std::multimap<uint, ip_address, std::greater<uint> > &ge
     for (auto it = task_three_ips.begin(); it != task_three_ips.end(); ++ it) {
         // std::cout << it->first << "\t" << it->second.string_representation << std::endl;
         std::cout << it->second.string_representation << std::endl;
+        logs.append(it->second.string_representation + '\n');
     }
     // std::cout << "Total Count: " << task_three_ips.size() << std::endl;
 }
@@ -227,6 +234,7 @@ void perform_task_four(std::multimap<uint, ip_address, std::greater<uint> > &gen
     for (auto it = task_four_ips.begin(); it != task_four_ips.end(); ++ it) {
         // std::cout << it->first << "\t" << it->second.string_representation << std::endl;
         std::cout << it->second.string_representation << std::endl;
+        logs.append(it->second.string_representation + '\n');
     }
     // std::cout << "Total Count: " << task_four_ips.size() << std::endl;
 }

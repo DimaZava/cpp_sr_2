@@ -7,13 +7,16 @@ on:
       - feature/github_actions
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build_mac_os:
+    runs-on: macos-latest
+    name: macos-latest
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: true
-      - run: sudo apt-get update
+      - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - run: brew install cmake
+      # - run: brew install boost
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
       - run: cmake --build . --target test
@@ -24,17 +27,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+          tag_name: ${{ github.run_number }}_macos
+          release_name: Release macOS ${{ github.run_number }}
           draft: false
           prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset
+      - name: Upload Release Asset Mac OS
+        id: upload-release-asset-mac-os
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./helloworld-0.0.${{ github.run_number }}-Linux.deb
-          asset_name: helloworld-0.0.${{ github.run_number }}-Linux.deb
-          asset_content_type: application/vnd.debian.binary-packag
+          asset_path: ./helloworld-0.0.${{ github.run_number }}-Darwin.7z
+          asset_name: helloworld-0.0.${{ github.run_number }}-Darwin.7z
+          asset_content_type: application/x-7z-compressed
