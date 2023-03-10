@@ -17,8 +17,8 @@ add_executable(auto auto.cpp)
 add_executable(decltype decltype.cpp)
 add_executable(lambda lambda.cpp)
 add_executable(tuple tuple.cpp)
-add_executable(ip_filter ip_filter/ip_filter.cpp)
-add_library(ip_filter_lib ip_filter/ip_filter.cpp)
+add_executable(ip_filter ip_filter.cpp)
+add_library(ip_filter_lib ip_filter.cpp)
 add_executable(unit_tests unit_tests.cpp)
 
 set_target_properties(auto decltype lambda tuple ip_filter ip_filter_lib unit_tests PROPERTIES
@@ -37,7 +37,7 @@ target_link_libraries(unit_tests
     )
 
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/ip_filter/ip_filter.tsv
+    ${CMAKE_CURRENT_SOURCE_DIR}/ip_filter.tsv
     ${PROJECT_BINARY_DIR}/ip_filter.tsv
     COPYONLY
     )
