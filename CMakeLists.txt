@@ -21,7 +21,7 @@ add_executable(ip_filter ip_filter.cpp)
 add_library(ip_filter_lib ip_filter.cpp)
 add_executable(unit_tests unit_tests.cpp)
 
-set_target_properties(auto decltype lambda tuple ip_filter ip_filter_lib unit_tests PROPERTIES
+set_target_properties(auto decltype lambda ip_filter ip_filter_lib unit_tests PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
     )
@@ -52,9 +52,9 @@ if (MSVC)
     target_compile_options(lambda PRIVATE
         /W4
     )
-    target_compile_options(tuple PRIVATE
-        /W4
-    )
+    # target_compile_options(tuple PRIVATE
+    #     /W4
+    # )
     target_compile_options(ip_filter PRIVATE
         /W4
     )
@@ -71,9 +71,9 @@ else ()
     target_compile_options(lambda PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
-    target_compile_options(tuple PRIVATE
-        -Wall -Wextra -pedantic -Werror
-    )
+    # target_compile_options(tuple PRIVATE
+    #     -Wall -Wextra -pedantic -Werror
+    # )
     target_compile_options(ip_filter PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
