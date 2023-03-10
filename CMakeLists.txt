@@ -33,7 +33,6 @@ target_include_directories(ip_filter_lib
 target_link_libraries(unit_tests
     PRIVATE
     GTest::GTest
-    ip_filter_lib
     )
 
 configure_file(

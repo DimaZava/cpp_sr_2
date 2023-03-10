@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-#include "ip_filter/ip_filter.cpp"
 
 TEST(AppCommonTests, VersionAssertions) {
     char app_path[] = "app_path";
