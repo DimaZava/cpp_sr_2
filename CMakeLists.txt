@@ -81,6 +81,12 @@ else ()
     )
 endif()
 
+if(APPLE)
+    set(CPACK_GENERATOR "7Z")
+else()
+    set(CPACK_GENERATOR DEB)
+endif()
+
 install(TARGETS ip_filter RUNTIME DESTINATION bin)
 
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
