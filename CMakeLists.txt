@@ -17,12 +17,13 @@ add_executable(auto auto.cpp)
 add_executable(decltype decltype.cpp)
 add_executable(lambda lambda.cpp)
 # add_executable(tuple tuple.cpp)
-add_executable(ip_filter ip_filter.cpp)
+add_executable(ip_filter_main ip_filter_main.cpp)
+# add_executable(ip_filter ip_filter.cpp)
 add_library(ip_filter_lib ip_filter.h ip_filter.cpp)
 add_library(md5_lib md5.cpp)
 add_executable(unit_tests unit_tests.cpp)
 
-set_target_properties(auto decltype lambda ip_filter ip_filter_lib unit_tests PROPERTIES
+set_target_properties(auto decltype lambda ip_filter_lib unit_tests PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
     )
@@ -31,7 +32,12 @@ target_include_directories(ip_filter_lib
     PRIVATE "${CMAKE_BINARY_DIR}"
     )
 
-target_link_libraries(ip_filter
+target_link_libraries(ip_filter_main
+    PRIVATE
+    ip_filter_lib
+    )
+
+target_link_libraries(ip_filter_lib
     PRIVATE
     md5_lib
     )
@@ -62,9 +68,6 @@ if (MSVC)
     # target_compile_options(tuple PRIVATE
     #     /W4
     # )
-    target_compile_options(ip_filter PRIVATE
-        /W4
-    )
     target_compile_options(ip_filter_lib PRIVATE
         /W4
     )
@@ -81,9 +84,6 @@ else ()
     # target_compile_options(tuple PRIVATE
     #     -Wall -Wextra -pedantic -Werror
     # )
-    target_compile_options(ip_filter PRIVATE
-        -Wall -Wextra -pedantic -Werror
-    )
     target_compile_options(ip_filter_lib PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
@@ -95,7 +95,7 @@ else()
     set(CPACK_GENERATOR DEB)
 endif()
 
-install(TARGETS ip_filter RUNTIME DESTINATION bin)
+install(TARGETS ip_filter_main RUNTIME DESTINATION bin)
 
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")

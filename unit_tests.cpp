@@ -3,7 +3,7 @@
 
 TEST(AppCommonTests, VersionAssertions) {
     char app_path[] = "app_path";
-    char ip_mock_path[] = "ip_filter.tsv";
+    char ip_mock_path[] = "../ip_filter.tsv";
     const char *argv[] = { app_path, ip_mock_path, NULL };
     ip_filter *filter = new ip_filter();
     std::string md5_digest = filter->perform_read_and_sort(argv);

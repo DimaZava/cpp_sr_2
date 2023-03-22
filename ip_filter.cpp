@@ -14,8 +14,6 @@
 #include <sstream>
 #include "ip_filter.h"
 
-#define UNUSED(variable) (void)variable
-
 // ("",  '.') -> [""]
 // ("11", '.') -> ["11"]
 // ("..", '.') -> ["", "", ""]
@@ -86,22 +84,6 @@ public:
 };
 
 static std::string logs;
-
-int main(int argc, char const *argv[])
-{
-    std::string md5_digest = "";
-    ip_filter *filter = new ip_filter();
-    try
-    {
-        md5_digest = filter->perform_read_and_sort(argv);
-    }
-    catch(const std::exception &e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
-    UNUSED(argc);
-    return md5_digest == "24e7a7b2270daee89c64d3ca5fb3da1a" ? 0 : -1;
-}
 
 std::string ip_filter::perform_read_and_sort(const char **argv) {
     // read data
