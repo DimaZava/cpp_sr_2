@@ -38,6 +38,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./helloworld-0.0.${{ github.run_number }}-Darwin.7z
-          asset_name: helloworld-0.0.${{ github.run_number }}-Darwin.7z
+          asset_path: ./02.cpp14--Darwin.7z
+          asset_name: 02.cpp14--Darwin.7z
           asset_content_type: application/x-7z-compressed
