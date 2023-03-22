@@ -12,12 +12,13 @@
 #include <cmath>
 #include <string>
 #include <sstream>
+#include "md5.h"
 
 #define UNUSED(variable) (void)variable
 
 class ip_address;
 
-int perform_read_and_sort(const char **argv);
+std::string perform_read_and_sort(const char **argv);
 void prepare_data_vector(const char **argv, std::vector<ip_address> &general_sorted_ips_vector);
 void perform_task_one_vector(const std::vector<ip_address> &general_sorted_ips_vector);
 void perform_task_two_vector(const std::vector<ip_address> &general_sorted_ips_vector);
@@ -97,20 +98,20 @@ static std::string logs;
 
 int main(int argc, char const *argv[])
 {
+    std::string md5_digest = "";
     try
     {
-        perform_read_and_sort(argv);
+        md5_digest = perform_read_and_sort(argv);
     }
     catch(const std::exception &e)
     {
         std::cerr << e.what() << std::endl;
     }
-    // logs.hash == 24e7a7b2270daee89c64d3ca5fb3da1a
     UNUSED(argc);
-    return 0;
+    return md5_digest == "24e7a7b2270daee89c64d3ca5fb3da1a" ? 0 : -1;
 }
 
-int perform_read_and_sort(const char **argv) {
+std::string perform_read_and_sort(const char **argv) {
     // read data
     std::vector<ip_address> general_sorted_ips_vector;
     
@@ -119,7 +120,10 @@ int perform_read_and_sort(const char **argv) {
     perform_task_two_vector(general_sorted_ips_vector);
     perform_task_three_vector(general_sorted_ips_vector);
     perform_task_four_vector(general_sorted_ips_vector);
-    return 0;
+    
+    MD5 *md5 = new MD5(logs);
+    md5->finalize();
+    return md5->hexdigest();
 }
 
 void prepare_data_vector(const char **argv, std::vector<ip_address> &general_sorted_ips_vector) {

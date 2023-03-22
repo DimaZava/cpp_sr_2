@@ -19,6 +19,7 @@ add_executable(lambda lambda.cpp)
 # add_executable(tuple tuple.cpp)
 add_executable(ip_filter ip_filter.cpp)
 add_library(ip_filter_lib ip_filter.cpp)
+add_library(md5_lib md5.cpp)
 add_executable(unit_tests unit_tests.cpp)
 
 set_target_properties(auto decltype lambda ip_filter ip_filter_lib unit_tests PROPERTIES
@@ -30,9 +31,15 @@ target_include_directories(ip_filter_lib
     PRIVATE "${CMAKE_BINARY_DIR}"
     )
 
+target_link_libraries(ip_filter
+    PRIVATE
+    md5_lib
+    )
+
 target_link_libraries(unit_tests
     PRIVATE
     GTest::GTest
+    ip_filter_lib
     )
 
 configure_file(
