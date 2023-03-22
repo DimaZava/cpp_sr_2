@@ -12,18 +12,9 @@
 #include <cmath>
 #include <string>
 #include <sstream>
-#include "md5.h"
+#include "ip_filter.h"
 
 #define UNUSED(variable) (void)variable
-
-class ip_address;
-
-std::string perform_read_and_sort(const char **argv);
-void prepare_data_vector(const char **argv, std::vector<ip_address> &general_sorted_ips_vector);
-void perform_task_one_vector(const std::vector<ip_address> &general_sorted_ips_vector);
-void perform_task_two_vector(const std::vector<ip_address> &general_sorted_ips_vector);
-void perform_task_three_vector(const std::vector<ip_address> &general_sorted_ips_vector);
-void perform_task_four_vector(const std::vector<ip_address> &general_sorted_ips_vector);
 
 // ("",  '.') -> [""]
 // ("11", '.') -> ["11"]
@@ -99,9 +90,10 @@ static std::string logs;
 int main(int argc, char const *argv[])
 {
     std::string md5_digest = "";
+    ip_filter *filter = new ip_filter();
     try
     {
-        md5_digest = perform_read_and_sort(argv);
+        md5_digest = filter->perform_read_and_sort(argv);
     }
     catch(const std::exception &e)
     {
@@ -111,7 +103,7 @@ int main(int argc, char const *argv[])
     return md5_digest == "24e7a7b2270daee89c64d3ca5fb3da1a" ? 0 : -1;
 }
 
-std::string perform_read_and_sort(const char **argv) {
+std::string ip_filter::perform_read_and_sort(const char **argv) {
     // read data
     std::vector<ip_address> general_sorted_ips_vector;
     
@@ -126,7 +118,7 @@ std::string perform_read_and_sort(const char **argv) {
     return md5->hexdigest();
 }
 
-void prepare_data_vector(const char **argv, std::vector<ip_address> &general_sorted_ips_vector) {
+void ip_filter::prepare_data_vector(const char **argv, std::vector<ip_address> &general_sorted_ips_vector) {
     std::string ip_file_path = (std::string)argv[1];
     if (ip_file_path.find("ip_filter.tsv") == std::string::npos) {
         throw std::runtime_error("Error: Please, pass ip_filter.tsv file as parameter");
@@ -165,7 +157,7 @@ void prepare_data_vector(const char **argv, std::vector<ip_address> &general_sor
     std::sort(general_sorted_ips_vector.begin(), general_sorted_ips_vector.end(), comparator);
 }
 
-void perform_task_one_vector(const std::vector<ip_address> &general_sorted_ips_vector) {
+void ip_filter::perform_task_one_vector(const std::vector<ip_address> &general_sorted_ips_vector) {
     // print parsed data
     for (auto element : general_sorted_ips_vector) {
         std::cout << element.string_representation << std::endl;
@@ -173,7 +165,7 @@ void perform_task_one_vector(const std::vector<ip_address> &general_sorted_ips_v
     }
 }
 
-void perform_task_two_vector(const std::vector<ip_address> &general_sorted_ips_vector) {
+void ip_filter::perform_task_two_vector(const std::vector<ip_address> &general_sorted_ips_vector) {
     std::vector<ip_address> task_two_ips_vector;
     auto octet_one_filter = [](ip_address ip_address) {
         return ip_address.octets.at(0) == 1;
@@ -190,7 +182,7 @@ void perform_task_two_vector(const std::vector<ip_address> &general_sorted_ips_v
     }
 }
 
-void perform_task_three_vector(const std::vector<ip_address> &general_sorted_ips_vector) {
+void ip_filter::perform_task_three_vector(const std::vector<ip_address> &general_sorted_ips_vector) {
     std::vector<ip_address> task_three_ips_vector;
     auto octet_46_70_filter = [](ip_address ip_address) {
         return ip_address.octets.at(0) == 46 && ip_address.octets.at(1) == 70;
@@ -207,7 +199,7 @@ void perform_task_three_vector(const std::vector<ip_address> &general_sorted_ips
     }
 }
 
-void perform_task_four_vector(const std::vector<ip_address> &general_sorted_ips_vector) {
+void ip_filter::perform_task_four_vector(const std::vector<ip_address> &general_sorted_ips_vector) {
     std::vector<ip_address> task_four_ips_vector;
     auto octet_46_70_filter = [](ip_address ip_address) {
         return ip_address.octets.at(0) == 46 ||
